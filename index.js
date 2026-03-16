@@ -4,15 +4,15 @@
 const readline = require('readline');
 const helper = require('./utils/helper');
 const ConsoleDecorator = require('./utils/decorator');
+const fileManager = require('./utils/fileManager');
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
 const PROJ_NAME = 'NOTE-BOOK';
-let welcome = `Приветствуем в приложении ${PROJ_NAME}`;
 
-let notes = [];
+let notes = fileManager.loadData();
 
 const welcomeApp = () => {
     ConsoleDecorator.drawLine(50,3);
@@ -31,6 +31,7 @@ const addNote = () => {
             }
 
             notes.push(newNote);
+            fileManager.saveData(notes);
             console.log(`Всего заметок ${notes.length}`)
             showMenu();
         });
@@ -97,6 +98,7 @@ const deleteNote = () => {
         else if(num > 0 && num <= notes.length){
             notes.splice(num, - 1, 1);
             notes = helper.reindexIds(notes);
+            fileManager.saveData(notes);
             console.log(`Заметка ${num} удалена`);
         }
         else{

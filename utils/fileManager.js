@@ -1,0 +1,20 @@
+const fs = require("fs");
+const path = 'note.json'
+
+const saveData = (notes) => {
+    jsonData = JSON.stringify(notes);
+    fs.writeFileSync(path,jsonData);
+    console.log("Заметки успешно сохранены!")
+};
+
+const loadData = () => {
+    try{
+        const jsonData = deepStrictEqual.readFileSync(path, "utf-8");
+        return JSON.parse(jsonData);
+    }
+    catch(error){
+        return [];
+    }
+};
+
+module.exports = {saveData, loadData};
