@@ -9,7 +9,7 @@ const saveData = (notes) => {
 
 const loadData = () => {
     try{
-        const jsonData = deepStrictEqual.readFileSync(path, "utf-8");
+        const jsonData = fs.readFileSync(path, "utf-8");
         return JSON.parse(jsonData);
     }
     catch(error){

@@ -2,10 +2,10 @@
 //ИНИЦИАЛИЗАЦИЯ
 //-------------
 const readline = require('readline');
-const helper = require('./utils/helper');
-const ConsoleDecorator = require('./utils/decorator');
-const fileManager = require('./utils/fileManager');
-const { resolve } = require('dns');
+const helper = require('../utils/helper');
+const ConsoleDecorator = require('./decorator');
+const fileManager = require('../utils/fileManager');
+
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -50,7 +50,7 @@ const showNotes = async() => {
      if(notes.length === 0){
         console.log("Пока в приложении не заметок!");
      }
-        ConsoleDecorator.showAllFormatNotes(notes);
+        ConsoleDecorator.showAllFormatNotes(notes);  
         await showMenu();
      };
 
@@ -72,14 +72,14 @@ const showMenu =  async() => {
             deleteNote();
             break;
         case '0':
-            const choice = question('Вы действительно хотите выйти? (да/нет): ');
-                if (answer === 'да' | answer === 'д' | answer === 'yes' | answer === 'y') {
-                    console.log("bye bye! ");
-                    rl.close();
-                } else {
-                    console.log("Продолжаем работу...");
-                    showMenu();
-                }
+            const answer = await question('Вы действительно хотите выйти? (да/нет): ');
+            if (answer === 'да' || answer === 'д' || answer === 'yes' || answer === 'y') {
+                console.log("bye bye! ");
+                rl.close();
+            } else {
+                console.log("Продолжаем работу...");
+                await showMenu();
+            }
             break;
         default:
             console.log("Неверный выбор. Пожалуйста, выберите 1, 2, 3 или 0");

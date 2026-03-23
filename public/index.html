@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ NoteMaster | Ваши заметки со стилем</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Анимированные фоновые элементы */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes moveGrid {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+        
+        /* Главный контейнер */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Карточка приложения */
+        .app-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Хедер с градиентом */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+        
+        .header h1 span {
+            display: inline-block;
+            animation: wave 1s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(15deg);
+            }
+            75% {
+                transform: rotate(-15deg);
+            }
+        }
+        
+        .stats {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        /* Панель кнопок */
+        .buttons {
+            padding: 25px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Контейнер заметок */
+        .notes-container {
+            padding: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+        
+        /* Стилизация скроллбара */
+        .notes-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .notes-container::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        
+        .notes-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+        
+        /* Карточка заметки */
+        .note-card {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .note-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .note-card:hover {
+            transform: translateX(5px) translateY(-2px);
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Заголовок заметки */
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .note-id {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .note-date {
+            color: #64748b;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .note-date::before {
+            content: '📅';
+            font-size: 0.9rem;
+        }
+        
+        /* Название заметки */
+        .note-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+            word-break: break-word;
+        }
+        
+        /* Содержание заметки */
+        .note-content {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            word-break: break-word;
+            margin-bottom: 15px;
+        }
+        
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            background: white;
+            border-radius: 20px;
+        }
+        
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .empty-state p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .empty-state small {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Анимация появления */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .note-card {
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            .notes-container {
+                padding: 20px;
+            }
+            
+            .note-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .note-title {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Эффект загрузки */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Уведомления */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        /* Кнопка удаления внутри карточки */
+        .delete-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+        
+        .delete-btn:hover {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-card">
+            <div class="header">
+                <h1>
+                    <span>✨</span> NoteMaster <span>📝</span>
+                </h1>
+                <div class="stats" id="stat">Всего заметок: 0</div>
+            </div>
+            
+            <div class="buttons">
+                <button onclick="addNote()">➕ Добавить заметку</button>
+                <button onclick="showNotes()">👁️ Показать заметки</button>
+                <button onclick="deleteNote()">🗑️ Удалить заметку</button>
+            </div>
+            
+            <div class="notes-container" id="content">
+                <div class="empty-state">
+                    <div class="icon">📭</div>
+                    <p>У вас пока нет заметок</p>
+                    <small>Нажмите "Добавить заметку" чтобы создать первую</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast"></div>
+    
+    <script src="/api/app.js"></script>
+</body>
+</html>
