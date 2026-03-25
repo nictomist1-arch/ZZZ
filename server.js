@@ -86,8 +86,9 @@ const server = http.createServer(async (req, res) => {
         return;
     }
     
-
-    return;
+    async function deleteNote(){
+        
+    }
 });
 
 server.listen(5001, () =>{
