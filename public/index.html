@@ -3,560 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌀 PSYCHO-NOTES | Безумные заметки 🎪</title>
+    <title>8-BIT Notes | Книга заметок</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
         }
-        
+
         body {
-            font-family: 'Space Grotesk', monospace;
-            background: linear-gradient(45deg, #ff0066, #ff6600, #00ff66, #0066ff, #ff00cc);
-            background-size: 400% 400%;
-            animation: crazyBg 0.5s ease infinite;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            background: #8B8B8B;
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
             position: relative;
             overflow-x: hidden;
+            image-rendering: pixelated;
         }
-        
-        /* Безумный фон */
-        @keyframes crazyBg {
-            0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
-            25% { background-position: 50% 100%; filter: hue-rotate(90deg); }
-            50% { background-position: 100% 50%; filter: hue-rotate(180deg); }
-            75% { background-position: 50% 0%; filter: hue-rotate(270deg); }
-            100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
-        }
-        
-        /* Летающие частицы */
+
+        /* Текстурный фон как у земли */
         body::before {
             content: '';
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: particleMove 0.3s linear infinite;
+            background-image: 
+                repeating-linear-gradient(45deg, 
+                    rgba(100, 100, 100, 0.3) 0px, 
+                    rgba(100, 100, 100, 0.3) 2px,
+                    transparent 2px,
+                    transparent 8px),
+                repeating-linear-gradient(135deg, 
+                    rgba(80, 80, 80, 0.3) 0px, 
+                    rgba(80, 80, 80, 0.3) 2px,
+                    transparent 2px,
+                    transparent 8px);
             pointer-events: none;
             z-index: 0;
         }
-        
-        @keyframes particleMove {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(30px, 30px) rotate(360deg); }
-        }
-        
-        /* Пульсирующие круги */
-        .pulse-circle {
-            position: fixed;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.5), transparent);
-            pointer-events: none;
-            animation: pulseWave 1s ease-out infinite;
-            z-index: 0;
-        }
-        
-        @keyframes pulseWave {
-            0% { transform: scale(0); opacity: 0.8; }
-            100% { transform: scale(4); opacity: 0; }
-        }
-        
-        /* Главный контейнер */
+
+        /* Контейнер */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
-            animation: containerShake 0.2s infinite;
         }
-        
-        @keyframes containerShake {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(2px, -2px) rotate(0.5deg); }
-            75% { transform: translate(-2px, 2px) rotate(-0.5deg); }
-        }
-        
-        /* Безумная карточка */
+
+        /* Minecraft стиль карточки */
         .app-card {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: 50px;
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.5), 0 0 100px rgba(0, 255, 255, 0.3);
+            background: #C6C6C6;
+            border: 4px solid #373737;
+            box-shadow: 
+                inset 0 0 0 2px #FFFFFF,
+                inset 0 0 0 4px #8B8B8B,
+                0 8px 16px rgba(0, 0, 0, 0.3);
+            image-rendering: pixelated;
             overflow: hidden;
-            animation: cardGlow 0.5s ease-in-out infinite, spinCard 3s linear infinite;
-            border: 3px solid transparent;
-            background-clip: padding-box;
         }
-        
-        @keyframes cardGlow {
-            0% { box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
-            50% { box-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff; }
-            100% { box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff; }
-        }
-        
-        @keyframes spinCard {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(1deg) scale(1.02); }
-            100% { transform: rotate(0deg) scale(1); }
-        }
-        
-        /* Психоделический хедер */
+
+        /* Хедер в стиле Minecraft */
         .header {
-            background: linear-gradient(90deg, #ff0000, #ff00ff, #00ffff, #ffff00, #ff0000);
-            background-size: 300% 100%;
-            animation: rainbowMove 0.3s linear infinite;
-            padding: 40px 30px;
+            background: #8B8B8B;
+            padding: 30px;
             text-align: center;
+            border-bottom: 4px solid #373737;
             position: relative;
-            overflow: hidden;
+            background-image: repeating-linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 2px,
+                transparent 2px,
+                transparent 8px
+            );
         }
-        
-        @keyframes rainbowMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
-        }
-        
+
         .header h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            font-family: 'Orbitron', monospace;
-            color: white;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff, 0 0 30px #ffff00;
-            animation: textGlitch 0.1s infinite, textZoom 0.5s ease-in-out infinite;
-            letter-spacing: 5px;
+            font-size: 2rem;
+            font-weight: normal;
+            color: #3A2A1F;
+            text-shadow: 3px 3px 0 #D4B48C;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            font-family: 'Press Start 2P', monospace;
         }
-        
-        @keyframes textGlitch {
-            0%, 100% { transform: skew(0deg, 0deg); text-shadow: 0 0 10px #ff00ff; }
-            25% { transform: skew(2deg, -1deg); text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
-            75% { transform: skew(-2deg, 1deg); text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+
+        .header p {
+            color: #2A2A2A;
+            font-size: 0.7rem;
+            margin-bottom: 15px;
+            font-family: 'Press Start 2P', monospace;
         }
-        
-        @keyframes textZoom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); letter-spacing: 10px; }
-        }
-        
+
         .stats {
-            font-size: 1.2rem;
-            color: white;
-            font-weight: bold;
-            animation: statBlink 0.5s step-end infinite;
-            text-shadow: 0 0 5px red, 0 0 10px blue;
+            display: inline-block;
+            background: #373737;
+            color: #D4B48C;
+            padding: 8px 16px;
+            font-size: 0.6rem;
+            font-family: 'Press Start 2P', monospace;
+            border: 2px solid #1F1F1F;
+            box-shadow: inset 0 0 0 2px #5F5F5F;
+            image-rendering: pixelated;
         }
-        
-        @keyframes statBlink {
-            0%, 100% { opacity: 1; color: white; }
-            50% { opacity: 0.5; color: yellow; }
-        }
-        
+
         /* Панель кнопок */
         .buttons {
-            padding: 30px;
+            padding: 20px;
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.5);
+            background: #9B9B9B;
+            border-bottom: 4px solid #373737;
             flex-wrap: wrap;
         }
-        
+
         button {
-            background: linear-gradient(45deg, #ff0066, #ff6600, #ff0066);
-            background-size: 200% 200%;
-            animation: buttonPulse 0.8s ease infinite, buttonGlow 0.3s infinite;
-            color: white;
-            border: 2px solid #fff;
-            padding: 14px 32px;
-            border-radius: 60px;
+            background: #5F5F5F;
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 24px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            font-family: 'Orbitron', monospace;
-            transition: all 0.1s ease;
+            font-size: 0.65rem;
+            font-weight: normal;
+            font-family: 'Press Start 2P', monospace;
+            transition: all 0.05s linear;
             position: relative;
-            overflow: hidden;
+            box-shadow: 
+                inset -2px -2px 0 0 #1F1F1F,
+                inset 2px 2px 0 0 #9F9F9F,
+                0 4px 8px rgba(0, 0, 0, 0.3);
+            image-rendering: pixelated;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
-        
-        @keyframes buttonPulse {
-            0%, 100% { background-position: 0% 50%; transform: scale(1); }
-            50% { background-position: 100% 50%; transform: scale(1.05); }
-        }
-        
-        @keyframes buttonGlow {
-            0%, 100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
-            50% { box-shadow: 0 0 20px #ffff00, 0 0 40px #ff00ff; }
-        }
-        
-        button:hover {
-            transform: scale(1.1) rotate(5deg);
-            animation: buttonSpin 0.2s linear infinite;
-        }
-        
-        @keyframes buttonSpin {
-            0% { transform: scale(1.1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(5deg); }
-            75% { transform: scale(1.1) rotate(-5deg); }
-            100% { transform: scale(1.1) rotate(0deg); }
-        }
-        
+
         button:active {
-            transform: scale(0.95);
+            transform: translateY(2px);
+            box-shadow: 
+                inset 2px 2px 0 0 #1F1F1F,
+                inset -2px -2px 0 0 #9F9F9F,
+                0 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
+        button:hover {
+            background: #7F7F7F;
+            transform: translateY(-1px);
+        }
+
         /* Контейнер заметок */
         .notes-container {
-            padding: 30px;
+            padding: 20px;
             max-height: 600px;
             overflow-y: auto;
-            background: rgba(0, 0, 0, 0.6);
+            background: #C6C6C6;
+            background-image: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.05) 0px,
+                rgba(0, 0, 0, 0.05) 2px,
+                transparent 2px,
+                transparent 4px
+            );
         }
-        
-        /* Безумные карточки заметок */
+
+        /* Стилизация скроллбара в стиле Minecraft */
+        .notes-container::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .notes-container::-webkit-scrollbar-track {
+            background: #5F5F5F;
+            border: 2px solid #373737;
+        }
+
+        .notes-container::-webkit-scrollbar-thumb {
+            background: #8B8B8B;
+            border: 2px solid #373737;
+        }
+
+        .notes-container::-webkit-scrollbar-thumb:hover {
+            background: #9B9B9B;
+        }
+
+        /* Карточка заметки в стиле Minecraft */
         .note-card {
-            background: linear-gradient(135deg, rgba(255,0,102,0.3), rgba(0,255,255,0.3));
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            margin-bottom: 25px;
-            padding: 25px;
-            transition: all 0.1s ease;
+            background: #F5F5F5;
+            border: 3px solid #373737;
+            margin-bottom: 20px;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00) 1;
-            animation: cardCrazy 0.3s infinite, borderRainbow 0.5s linear infinite;
-            transform-origin: center;
+            box-shadow: 
+                inset 0 0 0 1px #FFFFFF,
+                0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.1s ease;
+            image-rendering: pixelated;
         }
-        
-        @keyframes cardCrazy {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(3px, -2px) rotate(1deg); }
-            75% { transform: translate(-2px, 3px) rotate(-1deg); }
-        }
-        
-        @keyframes borderRainbow {
-            0% { border-color: #ff00ff; }
-            25% { border-color: #00ffff; }
-            50% { border-color: #ffff00; }
-            75% { border-color: #ff00ff; }
-            100% { border-color: #ff00ff; }
-        }
-        
-        .note-card::before {
-            content: '🌀⚡✨🌈🔥';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-            animation: shine 1s linear infinite;
-            font-size: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-        }
-        
-        @keyframes shine {
-            0% { left: -100%; opacity: 0; }
-            50% { left: 0%; opacity: 1; }
-            100% { left: 100%; opacity: 0; }
-        }
-        
+
         .note-card:hover {
-            transform: scale(1.05) rotate(2deg) !important;
-            animation: hoverCrazy 0.1s infinite;
-            box-shadow: 0 0 50px rgba(255,0,255,0.8);
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 0 0 1px #FFFFFF,
+                0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        
-        @keyframes hoverCrazy {
-            0%, 100% { transform: scale(1.05) rotate(2deg); }
-            50% { transform: scale(1.08) rotate(-2deg); }
-        }
-        
-        /* Заголовок заметки */
+
+        /* Заголовок карточки */
         .note-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-            animation: headerPulse 0.5s ease infinite;
+            border-bottom: 2px solid #8B8B8B;
         }
-        
-        @keyframes headerPulse {
-            0%, 100% { border-bottom-color: rgba(255,0,255,0.5); }
-            50% { border-bottom-color: rgba(0,255,255,0.5); }
-        }
-        
+
         .note-id {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            font-family: 'Orbitron', monospace;
-            animation: idSpin 1s linear infinite;
+            background: #373737;
+            color: #D4B48C;
+            padding: 4px 12px;
+            font-size: 0.55rem;
+            font-family: 'Press Start 2P', monospace;
+            border: 2px solid #1F1F1F;
+            box-shadow: inset 0 0 0 1px #5F5F5F;
         }
-        
-        @keyframes idSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
+
         .note-date {
-            color: #ffff00;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-shadow: 0 0 5px red;
-            animation: dateBlink 0.3s step-end infinite;
+            color: #5F5F5F;
+            font-size: 0.5rem;
+            font-family: 'Press Start 2P', monospace;
+            background: #E5E5E5;
+            padding: 4px 8px;
+            border: 1px solid #8B8B8B;
         }
-        
-        @keyframes dateBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; text-shadow: 0 0 10px blue; }
-        }
-        
+
         /* Название заметки */
         .note-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 15px;
-            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff;
-            animation: titleWobble 0.2s infinite;
+            font-size: 1rem;
+            font-weight: normal;
+            color: #3A2A1F;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            font-family: 'Press Start 2P', monospace;
+            text-shadow: 1px 1px 0 #D4B48C;
             word-break: break-word;
         }
-        
-        @keyframes titleWobble {
-            0%, 100% { transform: translateX(0px); }
-            25% { transform: translateX(2px); }
-            75% { transform: translateX(-2px); }
-        }
-        
+
         /* Содержание заметки */
         .note-content {
-            color: #ccffcc;
+            color: #2A2A2A;
             line-height: 1.6;
-            font-size: 1rem;
+            font-size: 0.7rem;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
             word-break: break-word;
-            animation: contentFlicker 0.1s infinite;
         }
-        
-        @keyframes contentFlicker {
-            0%, 100% { opacity: 1; color: #ccffcc; }
-            50% { opacity: 0.9; color: #ffccff; }
+
+        /* Кнопки действий в карточке */
+        .note-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #8B8B8B;
         }
-        
+
+        .note-actions button {
+            padding: 6px 16px;
+            font-size: 0.5rem;
+            background: #6F6F6F;
+        }
+
         /* Пустое состояние */
         .empty-state {
             text-align: center;
-            padding: 80px 30px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 40px;
-            animation: emptyDance 1s ease-in-out infinite;
+            padding: 60px 20px;
+            background: #D4D4D4;
+            border: 3px solid #373737;
+            box-shadow: inset 0 0 0 2px #FFFFFF;
         }
-        
-        @keyframes emptyDance {
-            0%, 100% { transform: translateY(0px); }
-            25% { transform: translateY(-10px) rotate(5deg); }
-            75% { transform: translateY(10px) rotate(-5deg); }
-        }
-        
+
         .empty-state .icon {
-            font-size: 80px;
-            display: inline-block;
-            animation: iconSpin 0.5s linear infinite;
+            font-size: 48px;
+            margin-bottom: 20px;
+            filter: drop-shadow(2px 2px 0 #373737);
         }
-        
-        @keyframes iconSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
+
         .empty-state p {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #ff00ff;
-            animation: textCrazy 0.2s infinite;
+            font-size: 0.7rem;
+            color: #3A2A1F;
+            margin-bottom: 10px;
+            font-family: 'Press Start 2P', monospace;
         }
-        
-        @keyframes textCrazy {
-            0%, 100% { letter-spacing: normal; }
-            50% { letter-spacing: 5px; }
+
+        .empty-state small {
+            font-size: 0.5rem;
+            color: #5F5F5F;
+            font-family: 'Press Start 2P', monospace;
         }
-        
-        /* Анимация появления */
-        @keyframes crazySlide {
-            0% {
-                opacity: 0;
-                transform: translateX(-200px) rotate(-180deg) scale(0);
-                filter: blur(10px);
-            }
-            50% {
-                transform: translateX(50px) rotate(10deg) scale(1.2);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0) rotate(0deg) scale(1);
-                filter: blur(0);
-            }
-        }
-        
-        .note-card {
-            animation: crazySlide 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        }
-        
-        /* Стилизация скроллбара */
-        .notes-container::-webkit-scrollbar {
-            width: 12px;
-        }
-        
-        .notes-container::-webkit-scrollbar-track {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            animation: scrollPulse 1s linear infinite;
-        }
-        
-        .notes-container::-webkit-scrollbar-thumb {
-            background: radial-gradient(circle, #ffff00, #ff00ff);
-            border-radius: 10px;
-            animation: thumbMove 0.5s linear infinite;
-        }
-        
-        @keyframes thumbMove {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-            100% { transform: translateY(0); }
-        }
-        
-        /* Уведомления */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 60px;
-            font-size: 1rem;
-            font-weight: bold;
-            font-family: 'Orbitron', monospace;
-            box-shadow: 0 0 30px rgba(255,0,255,0.8);
-            transform: translateX(400px) rotate(0deg);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-            animation: toastSpin 0.5s linear infinite;
-            cursor: pointer;
-        }
-        
-        @keyframes toastSpin {
-            0% { transform: translateX(0) rotate(0deg); }
-            100% { transform: translateX(0) rotate(360deg); }
-        }
-        
-        .toast.show {
-            transform: translateX(0) rotate(0deg);
-            animation: toastCrazy 0.3s infinite;
-        }
-        
-        @keyframes toastCrazy {
-            0%, 100% { transform: translateX(0) rotate(0deg); }
-            25% { transform: translateX(5px) rotate(5deg); }
-            75% { transform: translateX(-5px) rotate(-5deg); }
-        }
-        
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .buttons {
-                flex-direction: column;
-            }
-            
-            button {
-                width: 100%;
-            }
-            
-            .note-title {
-                font-size: 1.2rem;
-            }
-        }
-        
-        /* Безумный лоадер */
+
+        /* Лоадер в стиле Minecraft */
         .loading {
             text-align: center;
             padding: 60px;
         }
-        
+
         .loader {
-            width: 80px;
-            height: 80px;
-            border: 5px solid rgba(255,0,255,0.3);
-            border-top: 5px solid #ff00ff;
-            border-right: 5px solid #00ffff;
-            border-bottom: 5px solid #ffff00;
-            border-radius: 50%;
-            animation: loaderCrazy 0.3s linear infinite;
+            width: 48px;
+            height: 48px;
             margin: 0 auto 20px;
+            background: #5F5F5F;
+            border: 4px solid #373737;
+            box-shadow: inset 0 0 0 2px #9F9F9F;
+            animation: spin 0.8s steps(4) infinite;
+            image-rendering: pixelated;
         }
-        
-        @keyframes loaderCrazy {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.2); }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        
-        /* Рандомные элементы */
-        .random-emoji {
+
+        .loading p {
+            color: #3A2A1F;
+            font-size: 0.6rem;
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        /* Уведомления в стиле Minecraft */
+        .toast {
             position: fixed;
-            font-size: 30px;
-            pointer-events: none;
-            animation: floatUp 2s ease-out forwards;
-            z-index: 9999;
+            bottom: 30px;
+            right: 30px;
+            background: #373737;
+            color: #D4B48C;
+            padding: 12px 20px;
+            font-size: 0.6rem;
+            font-family: 'Press Start 2P', monospace;
+            border: 3px solid #1F1F1F;
+            box-shadow: 
+                inset 0 0 0 2px #5F5F5F,
+                0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.2s ease;
+            z-index: 1000;
+            cursor: pointer;
+            image-rendering: pixelated;
         }
-        
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #8B3A3A;
+            color: #FFB4B4;
+        }
+
+        .toast.success {
+            background: #3A8B3A;
+            color: #B4FFB4;
+        }
+
+        /* Анимации */
+        @keyframes pixelFade {
+            from {
                 opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .note-card {
+            animation: pixelFade 0.2s steps(8);
+        }
+
+        /* Текстурные элементы */
+        .grass-block {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #5F5F5F;
+            border-top: 4px solid #3A7F3A;
+            box-shadow: inset 0 2px 0 0 #7FBF7F;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .buttons {
+                padding: 15px;
+                gap: 10px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 0.5rem;
+            }
+
+            .notes-container {
+                padding: 15px;
+            }
+
+            .note-card {
+                padding: 15px;
+            }
+
+            .note-title {
+                font-size: 0.8rem;
+            }
+
+            .note-content {
+                font-size: 0.6rem;
+            }
+
+            .toast {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                text-align: center;
+                font-size: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="grass-block"></div>
+    
     <div class="container">
         <div class="app-card">
             <div class="header">
-                <h1>🌀 PSYCHO-NOTES 🎪</h1>
-                <div class="stats" id="stat">✨ ВСЕГО ЗАМЕТОК: 0 ✨</div>
+                <h1>8-BIT NOTES</h1>
+                <p>✦ КНИГА ЗАМЕТОК ✦</p>
+                <div class="stats" id="stat">ЗАМЕТОК: 0</div>
             </div>
             
             <div class="buttons">
-                <button onclick="addNote()">➕ БЕЗУМНАЯ ЗАМЕТКА</button>
-                <button onclick="showNotes()">🌀 ПОКАЗАТЬ ХАОС</button>
-                <button onclick="deleteNote()">💀 УНИЧТОЖИТЬ</button>
+                <button onclick="addNote()">
+                    СОЗДАТЬ
+                </button>
+                <button onclick="editNote()">
+                    ПРАВИТЬ
+                </button>
+                <button onclick="deleteNote()">
+                    УДАЛИТЬ
+                </button>
             </div>
             
             <div class="notes-container" id="content">
                 <div class="empty-state">
-                    <div class="icon">🌀⚡🌈🔥💀</div>
-                    <p>ХАОС ЖДЕТ ТВОИХ ЗАМЕТОК!</p>
-                    <small>НАЖМИ КНОПКУ И СОЗДАЙ БЕЗУМИЕ</small>
+                    <div class="icon"></div>
+                    <p>КНИГА ПУСТА</p>
+                    <small>НАЖМИ "СОЗДАТЬ" ЧТОБЫ НАЧАТЬ</small>
                 </div>
             </div>
         </div>
@@ -567,44 +483,58 @@
     <script src="/api/app.js"></script>
     
     <script>
-        // Создание пульсирующих кругов
-        setInterval(() => {
-            const circle = document.createElement('div');
-            circle.className = 'pulse-circle';
-            circle.style.left = Math.random() * window.innerWidth + 'px';
-            circle.style.top = Math.random() * window.innerHeight + 'px';
-            circle.style.width = Math.random() * 100 + 50 + 'px';
-            circle.style.height = circle.style.width;
-            document.body.appendChild(circle);
-            setTimeout(() => circle.remove(), 1000);
-        }, 500);
-        
-        // Рандомные эмодзи
-        function createRandomEmoji() {
-            const emojis = ['🌀', '⚡', '🌈', '🔥', '💀', '🎪', '✨', '💫', '⭐', '🌟', '💥', '⚡', '🌪️', '🎭', '🎪', '🃏', '🎲', '🎯'];
-            const emoji = document.createElement('div');
-            emoji.className = 'random-emoji';
-            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * window.innerWidth + 'px';
-            emoji.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(emoji);
-            setTimeout(() => emoji.remove(), 2000);
+        // Звук клика (имитация)
+        function playClickSound() {
+            const audio = new Audio('data:audio/wav;base64,U3RlYWx0aCBzb3VuZA==');
+            audio.volume = 0.1;
+            audio.play().catch(() => {});
         }
         
-        setInterval(createRandomEmoji, 300);
-        
-        // Тряска экрана при клике
+        // Эффект частиц при клике
         document.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.body.style.animation = 'none';
-                setTimeout(() => {
-                    document.body.style.animation = '';
-                }, 10);
-                for(let i = 0; i < 10; i++) {
-                    setTimeout(createRandomEmoji, i * 50);
+            btn.addEventListener('click', (e) => {
+                // Создаем пиксельные частицы
+                for(let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'fixed';
+                    particle.style.width = '4px';
+                    particle.style.height = '4px';
+                    particle.style.backgroundColor = '#D4B48C';
+                    particle.style.border = '1px solid #8B8B8B';
+                    particle.style.left = e.clientX + 'px';
+                    particle.style.top = e.clientY + 'px';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '9999';
+                    particle.style.animation = `particleFly ${0.3 + Math.random() * 0.3}s ease-out forwards`;
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 50 + Math.random() * 50;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity;
+                    
+                    particle.style.setProperty('--vx', vx + 'px');
+                    particle.style.setProperty('--vy', vy + 'px');
+                    
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 500);
                 }
             });
         });
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFly {
+                0% {
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--vx), var(--vy));
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
